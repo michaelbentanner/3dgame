@@ -28,24 +28,24 @@
 
 					//===TRACK CODE===//
 
-				var _xFn = function(t) {var fns = [function(t) {return (Math.pow((1-t),3)*0.295)+(3*t*Math.pow((1-t),2)*0.1)+(3*Math.pow(t,2)*(1-t)*0.1625)+(Math.pow(t,3)*0.6625)},function(t) {return (Math.pow((1-t),3)*0.6625)+(3*t*Math.pow((1-t),2)*1.1625)+(3*Math.pow(t,2)*(1-t)*0.3825)+(Math.pow(t,3)*0.335)},function(t) {return (Math.pow((1-t),3)*0.335)+(3*t*Math.pow((1-t),2)*0.2875)+(3*Math.pow(t,2)*(1-t)*0.56)+(Math.pow(t,3)*0.1625)}];var i = Math.max(0,Math.min(2, Math.floor(t * 3)));return fns[i]((t - (i/3)) * 3);};
-				var _yFn = function(t) {var fns = [function(t) {return (Math.pow((1-t),3)*0.6228125)+(3*t*Math.pow((1-t),2)*0.025)+(3*Math.pow(t,2)*(1-t)*0.025)+(Math.pow(t,3)*0.5203125)},function(t) {return (Math.pow((1-t),3)*0.5203125)+(3*t*Math.pow((1-t),2)*1.015625)+(3*Math.pow(t,2)*(1-t)*0.9053125)+(Math.pow(t,3)*0.2853125)},function(t) {return (Math.pow((1-t),3)*0.2853125)+(3*t*Math.pow((1-t),2)*-0.3346875)+(3*Math.pow(t,2)*(1-t)*0.6378125)+(Math.pow(t,3)*0.4253125)}];var i = Math.max(0,Math.min(2, Math.floor(t * 3)));return fns[i]((t - (i/3)) * 3);};
-				/* START CURVE DATA 
-				{"start":[118,249.125],"init":[40,10],"segments":[{"a":[65,10],"b":[265,208.125]},{"a":[153,362.125],"b":[134,114.125]},{"a":[224,255.125],"b":[65,170.125]}]}
-   				END CURVE DATA */
+						var _xFn = function(t) {var fns = [function(t) {return (Math.pow((1-t),3)*0.025)+(3*t*Math.pow((1-t),2)*0.1)+(3*Math.pow(t,2)*(1-t)*0.1625)+(Math.pow(t,3)*0.225)}];var i = Math.max(0,Math.min(0, Math.floor(t * 1)));return fns[i]((t - (i/1)) * 1);};
+						var _yFn = function(t) {var fns = [function(t) {return (Math.pow((1-t),3)*0.2)+(3*t*Math.pow((1-t),2)*0.025)+(3*Math.pow(t,2)*(1-t)*0.025)+(Math.pow(t,3)*0.2)}];var i = Math.max(0,Math.min(0, Math.floor(t * 1)));return fns[i]((t - (i/1)) * 1);};
+						/* START CURVE DATA 
+						{"start":[10,80],"init":[40,10],"segments":[{"a":[65,10],"b":[90,80]}]}
+						END CURVE DATA */ 
 
-   					//===END TRACK CODE===//	
+					//===END TRACK CODE===//
 
-				var xFn = function(t) { return 650 *_xFn(t); }
-				var zFn = function(t) { return 650 *_yFn(t); }
+				var xFn = function(t) { return 650 * _xFn(t); }
+				var zFn = function(t) { return 650 * _yFn(t); } 
 
 				var playerSphere = BABYLON.MeshBuilder.CreateSphere("playerSphere", {
-				segments: 12,
-				diameter: 4
+					segments: 12,
+					diameter: 4
 				}, scene);
 				playerSphere.material = new BABYLON.StandardMaterial("playerSphereMaterial", scene);
 				playerSphere.material.diffuseTexture = new BABYLON.Texture('resources/BeachBallColor.jpg', scene);
-				playerSphere.position = new BABYLON.Vector3(xFn(5), 9, zFn(0));
+				playerSphere.position = new BABYLON.Vector3(xFn,(0), 9, zFn(0));
 				playerSphere.physicsImpostor = new BABYLON.PhysicsImpostor(playerSphere, BABYLON.PhysicsImpostor.SphereImpostor, {
 					mass: 1,
 					restitution: 0.9
@@ -105,18 +105,18 @@
 				}
 
 				function drawParametric(xFn, zFn, start, end, res, scene) {
-					for (var t = start; t <= end; t= ((end - start)/res)) {
+					for (var t = start; t <= end; t += ((end - start) / res)) {
 						drawPoint(xFn(t), zFn(t), 0, scene);
 					}
-				}
+				} 
 
-				drawParametric(xFn, zFn, 0, 1, 350, scene);
+				drawParametric(xFn, zFn, 0, 1, 350, scene); 
 
 				engine.runRenderLoop(scene.render.bind(scene));
 				window.addEventListener('resize', engine.resize.bind(engine));
 			}
 
-			function lost(){
+			 function lost(){
 				window.location.reload();
 				alert("You Lose!");
 			}
